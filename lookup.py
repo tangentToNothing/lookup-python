@@ -24,7 +24,7 @@ def main():
 
 	for i in range(0, len(hostnames)):
 		try:
-			ais = socket.getaddrinfo(hostnames[i] + ".ead.gwu.edu",0,0,0,0)
+			ais = socket.getaddrinfo(hostnames[i],0,0,0,0)
 			ip_list.append(ais[-1][4][0])
 		except socket.gaierror:
 			ip_list.append("error")
@@ -34,7 +34,11 @@ def main():
 
 	with open(str(outputcsv), 'w') as f:
 		f.write("nslookupIP,\n")
+		f.write(ip_list[0] + ',\n')
 		for ip in ip_list:
-			f.write(ip + ',\n')
+			if(ip != ip_list[0]):
+				f.write(ip + ',\n')
+			else:
+				pass
 	
 main()
